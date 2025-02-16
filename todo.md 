@@ -1,0 +1,17 @@
+#  TODO - Points non développés par manque de temps
+
+###  Fonctionnalités non implémentées
+1. **Tests unitaires et d'intégration**
+   - Aucun test n'a été mis en place avec Jest et React Testing Library.
+   - Il faudrait ajouter des tests pour valider le bon fonctionnement des composants et du contexte global.
+
+2. **Stockage du taux de change en local**
+   - Actuellement, le taux de change est uniquement géré en mémoire.
+   - Il serait intéressant de stocker la valeur du taux fixé dans `localStorage` pour la conserver après un rechargement de la page.
+
+3. **Internationalisation (i18n)**
+   - L'application n'est disponible qu'en français.
+   - Ajouter un système de traduction pour supporter plusieurs langues.
+
+---
+**Ces améliorations seraient prioritaires pour une prochaine itération !**
