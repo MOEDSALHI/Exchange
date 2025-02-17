@@ -27,6 +27,7 @@ const Converter = () => {
         rate: state.fixedRate ?? state.exchangeRate,
         amount: parseFloat(amount),
         result: parseFloat(convertedValue),
+        mode: state.fixedRate !== null ? 'Fixe' : 'Dynamique',
       },
     });
 

@@ -34,7 +34,7 @@ const HistoryTable = () => {
               <TableCell>{entry.rate}</TableCell>
               <TableCell>{entry.amount}</TableCell>
               <TableCell>{entry.result}</TableCell>
-              <TableCell>{state.fixedRate !== null ? 'Fixé' : 'Dynamique'}</TableCell>
+              <TableCell>{entry.mode}</TableCell> 
             </TableRow>
           ))}
         </TableBody>

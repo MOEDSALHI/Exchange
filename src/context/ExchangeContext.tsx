@@ -1,4 +1,4 @@
-import { createContext, useReducer, ReactNode } from 'react';
+import { createContext, useReducer, ReactNode, useEffect, useRef, useCallback } from 'react';
 
 type State = {
   exchangeRate: number;
@@ -13,6 +13,7 @@ type Conversion = {
   rate: number;
   amount: number;
   result: number;
+  mode: string;
 };
 
 type Action =
@@ -30,9 +31,7 @@ const initialState: State = {
 const exchangeReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_RATE':
-      if (state.fixedRate !== null) {
-        return state;
-      }
+      if (state.fixedRate !== null) return state;
       return { ...state, exchangeRate: action.payload };
 
     case 'FIX_RATE':
@@ -55,5 +54,24 @@ export const ExchangeContext = createContext<
 
 export const ExchangeProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(exchangeReducer, initialState);
+
+  const exchangeRateRef = useRef(state.exchangeRate);
+
+  useEffect(() => {
+    exchangeRateRef.current = state.exchangeRate;
+  }, [state.exchangeRate]);
+
+  const updateRate = useCallback(() => {
+    if (state.fixedRate === null) {
+      const randomChange = (Math.random() * 0.1 - 0.05).toFixed(4);
+      dispatch({ type: 'SET_RATE', payload: exchangeRateRef.current + parseFloat(randomChange) });
+    }
+  }, [state.fixedRate]);
+
+  useEffect(() => {
+    const interval = setInterval(updateRate, 3000);
+    return () => clearInterval(interval);
+  }, [updateRate]);
+
   return <ExchangeContext.Provider value={{ state, dispatch }}>{children}</ExchangeContext.Provider>;
 };
